@@ -10,9 +10,10 @@
 
 class PdfViewer: public QWidget
 {
+Q_OBJECT
 
 public:
-   PdfViewer(MuPDF::Document const * doc, QWidget *parent = 0);
+   PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent = 0);
    ~PdfViewer();
 
    void showPage(int iPage);
@@ -23,6 +24,13 @@ private:
    QVBoxLayout  m_layout;
    QLabel       m_labelContent;
 
+   int m_iOffset;
+
+protected:
+   virtual void mouseReleaseEvent(QMouseEvent *event);
+
+signals:
+   void signalSwitchPage(int direction);
 };
 
 #endif /* PDFVIEWER_HPP__ */

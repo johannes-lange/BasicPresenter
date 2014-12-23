@@ -1,9 +1,10 @@
-include_directories (${CMAKE_SOURCE_DIR}/mupdf-qt/include)
-link_directories (${CMAKE_SOURCE_DIR}/mupdf-qt/build/lib)
-link_directories (${CMAKE_SOURCE_DIR}/mupdf-qt/mupdf/build/debug)
+include_directories (${CMAKE_SOURCE_DIR}/3rdParty/mupdf-qt/include)
+link_directories    (${CMAKE_SOURCE_DIR}/3rdParty/mupdf-qt/build/lib)
+link_directories    (${CMAKE_SOURCE_DIR}/3rdParty/mupdf-qt/mupdf/build/debug)
 
 add_executable (${PROJECT_NAME}
    main.cpp
+   Controller.cpp
    PdfViewer.cpp
 )
 
