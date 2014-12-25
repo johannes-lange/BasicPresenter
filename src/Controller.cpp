@@ -4,9 +4,9 @@
 #include <QObject>
 
 Controller::Controller(QString filename, QObject *parent):
-   QObject(parent)
+   QObject(parent),
+   m_iCurrentPage(0)
 {
-   m_iCurrentPage=0;
    m_doc = MuPDF::loadDocument(filename);
    m_iMaxpage = m_doc->numPages()-1;
 }

@@ -1,7 +1,9 @@
 #include "PdfViewer.hpp"
 
 //#include <QDebug>
+#include <QApplication>
 #include <QMouseEvent>
+#include <QShortcut>
 
 PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
    QWidget(parent),
@@ -11,11 +13,37 @@ PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
 {
    m_layout.addWidget(&m_labelContent);
    this->setLayout(&m_layout);
+   createKeybindings();
 }
 
 PdfViewer::~PdfViewer()
 {
    delete m_page;
+}
+
+void PdfViewer::createKeybindings()
+{
+   // shortcuts are deleted by qt
+   QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+W"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT   (close()));
+   shortcut = new QShortcut(QKeySequence("Ctrl+Q"),this);
+   connect(shortcut                , SIGNAL(activated()),
+           QApplication::instance(), SLOT  (closeAllWindows()));
+
+   // Navigation
+   shortcut = new QShortcut(QKeySequence("Right"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotEmitNext()));
+   shortcut = new QShortcut(QKeySequence("Down"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotEmitNext()));
+   shortcut = new QShortcut(QKeySequence("Left"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotEmitPrev()));
+   shortcut = new QShortcut(QKeySequence("Up"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotEmitPrev()));
 }
 
 void PdfViewer::showPage(int iPage)
@@ -38,4 +66,14 @@ void PdfViewer::mouseReleaseEvent(QMouseEvent * event)
       default: return;
    }
    emit signalSwitchPage(switchDirection);
+}
+
+void PdfViewer::slotEmitNext()
+{
+   emit signalSwitchPage(1);
+}
+
+void PdfViewer::slotEmitPrev()
+{
+   emit signalSwitchPage(-1);
 }

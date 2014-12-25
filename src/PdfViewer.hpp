@@ -26,11 +26,16 @@ private:
 
    int m_iOffset;
 
+   void createKeybindings();
+
 protected:
    virtual void mouseReleaseEvent(QMouseEvent *event);
 
 signals:
    void signalSwitchPage(int direction);
+private slots:
+   void slotEmitNext();
+   void slotEmitPrev();
 };
 
 #endif /* PDFVIEWER_HPP__ */
