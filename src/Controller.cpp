@@ -1,14 +1,42 @@
 #include "Controller.hpp"
 
+#include <QApplication>
 #include <QDebug>
 #include <QObject>
 
-Controller::Controller(QString filename, QObject *parent):
+Controller::Controller(QObject *parent):
    QObject(parent),
+   m_doc(0),
    m_iCurrentPage(0)
 {
+   // parse command line arguments
+   QStringList args =  QApplication::arguments().mid(1);
+
+   // get filename
+   QString filename="";
+   foreach (QString arg, args){
+      if (arg.endsWith(".pdf",Qt::CaseInsensitive)){
+         filename=arg;
+         args.removeAll(arg);
+         break;
+      }
+   }
+
+   if (filename.isEmpty()) qFatal("Error: no valid filename found (*.pdf)");
    m_doc = MuPDF::loadDocument(filename);
+   if (!m_doc) qFatal(("Error: cannot open file "+filename).toStdString().c_str());
    m_iMaxpage = m_doc->numPages()-1;
+   // show "master" viewer
+   addPdfViewer(0);
+
+   // create user viewers
+   foreach (QString arg, args){
+      bool ok;
+      int offset;
+      offset=arg.toInt(&ok);
+      if (ok) addPdfViewer(offset);
+      else    qWarning("unrecognized argument: %s",arg.toStdString().c_str());
+   }
 }
 
 Controller::~Controller()

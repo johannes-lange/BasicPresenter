@@ -8,7 +8,7 @@ class Controller: public QObject
 Q_OBJECT
 
 public:
-   Controller(QString filename, QObject *parent=0);
+   Controller(QObject *parent=0);
    ~Controller();
 
    void addPdfViewer(int offset);
