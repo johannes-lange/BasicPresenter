@@ -2,7 +2,7 @@
 #define PDFVIEWER_HPP__
 
 #include <QLabel>
-#include <QVBoxLayout>
+#include <QGridLayout>
 #include <QWidget>
 
 #include "mupdf-qt.h"
@@ -21,15 +21,17 @@ public:
 private:
    MuPDF::Document const *const m_document;
    MuPDF::Page *m_page;
-   QVBoxLayout  m_layout;
+   QGridLayout  m_layout;
    QLabel       m_labelContent;
 
    int m_iOffset;
 
    void createKeybindings();
+   void updatePage();
 
 protected:
    virtual void mouseReleaseEvent(QMouseEvent *event);
+   virtual void resizeEvent(QResizeEvent *event);
 
 signals:
    void signalSwitchPage(int direction);

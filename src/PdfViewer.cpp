@@ -11,8 +11,12 @@ PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
    m_iOffset(offset),
    m_page(0)
 {
+   m_labelContent.setAlignment(Qt::AlignCenter);
    m_layout.addWidget(&m_labelContent);
+   m_layout.setContentsMargins(0,0,0,0);
    this->setLayout(&m_layout);
+
+   setFixedSize(600,450);
    createKeybindings();
 }
 
@@ -50,10 +54,21 @@ void PdfViewer::showPage(int iPage)
 {
    if (m_page) delete m_page;
    m_page = m_document->page(iPage+m_iOffset);
-   if (m_page)
-      m_labelContent.setPixmap(QPixmap::fromImage(m_page->renderImage(2,2)));
-   else
-      m_labelContent.setText(QString::number(iPage+m_iOffset+1));
+   if (!m_page) m_labelContent.setText(QString::number(iPage+m_iOffset+1));
+   else         updatePage();
+}
+
+void PdfViewer::updatePage()
+{
+   if (!m_page) return;
+
+   // render page according to window size
+   QSizeF pdfSize=m_page->size();
+   float scaleX=size().width()/pdfSize.width();
+   float scaleY=size().height()/pdfSize.height();
+   float const &scale = scaleX < scaleY ? scaleX : scaleY;
+   m_labelContent.setPixmap(QPixmap::fromImage(m_page->renderImage(scale,scale)));
+
 }
 
 void PdfViewer::mouseReleaseEvent(QMouseEvent * event)
@@ -66,6 +81,12 @@ void PdfViewer::mouseReleaseEvent(QMouseEvent * event)
       default: return;
    }
    emit signalSwitchPage(switchDirection);
+}
+
+void PdfViewer::resizeEvent(QResizeEvent *event)
+{
+   // re-render pdf page
+   updatePage();
 }
 
 void PdfViewer::slotEmitNext()

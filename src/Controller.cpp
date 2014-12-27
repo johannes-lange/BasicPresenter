@@ -1,7 +1,7 @@
 #include "Controller.hpp"
 
 #include <QApplication>
-#include <QDebug>
+//#include <QDebug>
 #include <QObject>
 
 Controller::Controller(QObject *parent):
