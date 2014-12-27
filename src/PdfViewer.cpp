@@ -16,7 +16,7 @@ PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
    m_layout.setContentsMargins(0,0,0,0);
    this->setLayout(&m_layout);
 
-   setFixedSize(600,450);
+   resize(600,450);
    createKeybindings();
 }
 
