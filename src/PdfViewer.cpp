@@ -11,6 +11,7 @@ PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
    QWidget(parent),
    m_document(doc),
    m_iOffset(offset),
+   m_iMaxpage(doc->numPages()-1),
    m_page(0)
 {
    QPalette pal = this->palette();
@@ -70,10 +71,14 @@ void PdfViewer::createKeybindings()
 
 void PdfViewer::showPage(int iPage)
 {
-   if (m_page) delete m_page;
-   m_page = m_document->page(iPage+m_iOffset);
-   if (!m_page) m_labelContent.setText(QString::number(iPage+m_iOffset+1));
-   else         updatePage();
+   int const iNew = iPage+m_iOffset;
+   if (iNew < 0 || iNew > m_iMaxpage){
+      m_labelContent.setText(QString("%1/%2").arg(iNew+1).arg(m_iMaxpage+1));
+   }else{
+      if (m_page) delete m_page;
+      m_page = m_document->page(iNew);
+      updatePage();
+   }
 }
 
 void PdfViewer::updatePage()
@@ -105,7 +110,7 @@ void PdfViewer::wheelEvent(QWheelEvent *event)
 {
    static int delta = 0;
    delta += event->delta();
-   int iSteps = delta / 8 / 15;
+   int const iSteps = delta / 8 / 15;
    delta -= iSteps* 8 * 15;
    emit signalSwitchPage(-iSteps);
 }

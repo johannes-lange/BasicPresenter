@@ -24,7 +24,8 @@ private:
    QGridLayout  m_layout;
    QLabel       m_labelContent;
 
-   int m_iOffset;
+   int const m_iOffset;
+   int const m_iMaxpage;
 
    void createKeybindings();
    void updatePage();
