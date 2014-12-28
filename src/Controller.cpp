@@ -55,6 +55,10 @@ void Controller::addPdfViewer(int offset)
 
    connect(p   , SIGNAL(signalSwitchPage(int)),
            this, SLOT  (slotSwitchPage  (int)));
+   connect(p   , SIGNAL(signalGotoStart()),
+           this, SLOT  (slotGotoStart()));
+   connect(p   , SIGNAL(signalGotoEnd()),
+           this, SLOT  (slotGotoEnd()));
 
    m_lViewers.append(p);
 }
@@ -64,6 +68,22 @@ void Controller::slotSwitchPage(int direction)
    int newPage = m_iCurrentPage+direction;
    if (newPage < 0 || newPage > m_iMaxpage) return;
    m_iCurrentPage=newPage;
+   foreach(PdfViewer *v, m_lViewers){
+      v->showPage(m_iCurrentPage);
+   }
+}
+
+void Controller::slotGotoStart()
+{
+   m_iCurrentPage=0;
+   foreach(PdfViewer *v, m_lViewers){
+      v->showPage(m_iCurrentPage);
+   }
+}
+
+void Controller::slotGotoEnd()
+{
+   m_iCurrentPage=m_iMaxpage;
    foreach(PdfViewer *v, m_lViewers){
       v->showPage(m_iCurrentPage);
    }

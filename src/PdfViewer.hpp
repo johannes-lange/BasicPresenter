@@ -35,6 +35,8 @@ protected:
 
 signals:
    void signalSwitchPage(int direction);
+   void signalGotoStart();
+   void signalGotoEnd();
 private slots:
    void slotEmitNext();
    void slotEmitPrev();

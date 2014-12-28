@@ -20,6 +20,8 @@ private:
    int m_iMaxpage;
 private slots:
    void slotSwitchPage(int direction);
+   void slotGotoStart();
+   void slotGotoEnd();
 };
 
 #endif /* CONTROLLER_HPP__ */

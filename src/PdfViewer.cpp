@@ -48,6 +48,12 @@ void PdfViewer::createKeybindings()
    shortcut = new QShortcut(QKeySequence("Up"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SLOT  (slotEmitPrev()));
+   shortcut = new QShortcut(QKeySequence("Home"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SIGNAL(signalGotoStart()));
+   shortcut = new QShortcut(QKeySequence("End"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SIGNAL(signalGotoEnd()));
 }
 
 void PdfViewer::showPage(int iPage)
