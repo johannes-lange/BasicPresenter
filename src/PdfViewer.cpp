@@ -89,6 +89,15 @@ void PdfViewer::mouseReleaseEvent(QMouseEvent * event)
    emit signalSwitchPage(switchDirection);
 }
 
+void PdfViewer::wheelEvent(QWheelEvent *event)
+{
+   static int delta = 0;
+   delta += event->delta();
+   int iSteps = delta / 8 / 15;
+   delta -= iSteps* 8 * 15;
+   emit signalSwitchPage(-iSteps);
+}
+
 void PdfViewer::resizeEvent(QResizeEvent *event)
 {
    // re-render pdf page

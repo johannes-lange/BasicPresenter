@@ -31,6 +31,7 @@ private:
 
 protected:
    virtual void mouseReleaseEvent(QMouseEvent *event);
+   virtual void wheelEvent(QWheelEvent *event);
    virtual void resizeEvent(QResizeEvent *event);
 
 signals:
