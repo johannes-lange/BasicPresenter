@@ -1,5 +1,7 @@
 #include "PdfViewer.hpp"
 
+#include <algorithm>
+
 //#include <QDebug>
 #include <QApplication>
 #include <QMouseEvent>
@@ -11,7 +13,17 @@ PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
    m_iOffset(offset),
    m_page(0)
 {
+   QPalette pal = this->palette();
+   pal.setColor(this->backgroundRole(), Qt::black);
+   pal.setColor(this->foregroundRole(), Qt::gray);
+   this->setPalette(pal);
+
+   QFont font = this->font();
+   font.setPointSize(72);
+   this->setFont(font);
+
    m_labelContent.setAlignment(Qt::AlignCenter);
+
    m_layout.addWidget(&m_labelContent);
    m_layout.setContentsMargins(0,0,0,0);
    this->setLayout(&m_layout);
@@ -70,11 +82,11 @@ void PdfViewer::updatePage()
 
    // render page according to window size
    QSizeF pdfSize=m_page->size();
-   float scaleX=size().width()/pdfSize.width();
-   float scaleY=size().height()/pdfSize.height();
-   float const &scale = scaleX < scaleY ? scaleX : scaleY;
+   float scale = std::min(
+                    size().width()/pdfSize.width(),
+                    size().height()/pdfSize.height()
+                 );
    m_labelContent.setPixmap(QPixmap::fromImage(m_page->renderImage(scale,scale)));
-
 }
 
 void PdfViewer::mouseReleaseEvent(QMouseEvent * event)
