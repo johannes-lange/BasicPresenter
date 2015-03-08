@@ -42,6 +42,7 @@ signals:
 private slots:
    void slotEmitNext();
    void slotEmitPrev();
+   void slotToggleFullscreen();
 };
 
 #endif /* PDFVIEWER_HPP__ */

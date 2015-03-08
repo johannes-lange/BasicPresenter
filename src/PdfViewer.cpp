@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-//#include <QDebug>
+#include <QDebug>
 #include <QApplication>
 #include <QMouseEvent>
 #include <QShortcut>
@@ -67,6 +67,15 @@ void PdfViewer::createKeybindings()
    shortcut = new QShortcut(QKeySequence("End"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SIGNAL(signalGotoEnd()));
+   shortcut = new QShortcut(QKeySequence("f"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotToggleFullscreen()));
+   shortcut = new QShortcut(QKeySequence("f5"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotToggleFullscreen()));
+   shortcut = new QShortcut(QKeySequence("esc"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (showNormal()));
 }
 
 void PdfViewer::showPage(int iPage)
@@ -129,4 +138,10 @@ void PdfViewer::slotEmitNext()
 void PdfViewer::slotEmitPrev()
 {
    emit signalSwitchPage(-1);
+}
+
+void PdfViewer::slotToggleFullscreen()
+{
+   if (this->isFullScreen()) this->showNormal();
+   else                      this->showFullScreen();
 }
