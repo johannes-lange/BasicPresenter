@@ -28,6 +28,7 @@ Controller::Controller(QObject *parent):
    m_iMaxpage = m_doc->numPages()-1;
    // show "master" viewer
    addPdfViewer(0);
+   m_lViewers.last()->setWindowTitle("BasicPresenter - Master");
 
    // create user viewers
    foreach (QString arg, args){

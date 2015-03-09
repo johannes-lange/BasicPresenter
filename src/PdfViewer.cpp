@@ -29,7 +29,8 @@ PdfViewer::PdfViewer(MuPDF::Document const *doc, int offset, QWidget *parent):
    m_layout.setContentsMargins(0,0,0,0);
    this->setLayout(&m_layout);
 
-   resize(600,450);
+   this->resize(600,450);
+   this->setWindowTitle(QString("BasicPresenter - Offset %1").arg(m_iOffset));
    createKeybindings();
 }
 
