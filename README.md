@@ -4,6 +4,7 @@ BasicPresenter
 Basic presentation tool for pdf presentations to show a master viewer and an arbitrary number of
 additional viewers.
 
+![Screenshot](https://raw.githubusercontent.com/johannes-lange/BasicPresenter/master/example-usage.png)
 
 ### Usage ###
     BasicPresenter <pdf-file> [<additional viewers>]
@@ -21,7 +22,7 @@ Controls:
 - `Right`/`Down`-key : next page
 - `Left`/`Up`-key    : previous page
 - `Home`/`End`       : go to first/last page
-- `f`/`F5`           : toggle fullscreen mode
+- `F`/`F5`           : toggle fullscreen mode
 - `Esc`              : leave fullscreen mode
 
 
@@ -42,6 +43,4 @@ Build actual project
     $ mkdir build; cd build
     $ cmake ..
     $ make
-
-    
 
