@@ -17,13 +17,13 @@ Options:
 
 Controls:
 
-- `Ctrl+W`           : close single viewer
-- `Ctrl+Q`           : quit application (close all viewers)
-- `Right`/`Down`-key : next page
-- `Left`/`Up`-key    : previous page
-- `Home`/`End`       : go to first/last page
-- `F`/`F5`           : toggle fullscreen mode
-- `Esc`              : leave fullscreen mode
+- `Ctrl`+`W`     : close single viewer
+- `Ctrl`+`Q`     : quit application (close all viewers)
+- `Right`/`Down` : next page
+- `Left`/`Up`    : previous page
+- `Home`/`End`   : go to first/last page
+- `F`/`F5`       : toggle fullscreen mode
+- `Esc`          : leave fullscreen mode
 
 
 
