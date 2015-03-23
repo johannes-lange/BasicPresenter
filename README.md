@@ -44,3 +44,8 @@ Build actual project
     $ cmake ..
     $ make
 
+### TODO ###
+- Bug: cannot decrease window size in Xfce (Probably concerns most other Window
+managers, too. Works in i3.)
+- Dynamically add new viewers
+- Dynamically change viewer offset
