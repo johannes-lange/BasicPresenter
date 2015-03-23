@@ -24,7 +24,7 @@ private:
    QGridLayout  m_layout;
    QLabel       m_labelContent;
 
-   int const m_iOffset;
+   int m_iOffset;
    int const m_iMaxpage;
 
    void createKeybindings();
@@ -39,10 +39,12 @@ signals:
    void signalSwitchPage(int direction);
    void signalGotoStart();
    void signalGotoEnd();
+   void signalSpawnViewer(int offset);
 private slots:
    void slotEmitNext();
    void slotEmitPrev();
    void slotToggleFullscreen();
+   void slotSpawnViewer();
 };
 
 #endif /* PDFVIEWER_HPP__ */

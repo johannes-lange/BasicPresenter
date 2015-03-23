@@ -11,7 +11,6 @@ public:
    Controller(QObject *parent=0);
    ~Controller();
 
-   void addPdfViewer(int offset);
 private:
    MuPDF::Document  *m_doc;
    QList<PdfViewer*> m_lViewers;
@@ -19,6 +18,7 @@ private:
    int m_iCurrentPage;
    int m_iMaxpage;
 private slots:
+   void slotAddPdfViewer(int offset);
    void slotSwitchPage(int direction);
    void slotGotoStart();
    void slotGotoEnd();

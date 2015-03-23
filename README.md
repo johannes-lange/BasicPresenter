@@ -28,6 +28,11 @@ Controls:
 
 
 ### Building ###
+Fetch source code via git (or download manually)
+
+    $ git clone https://github.com/johannes-lange/BasicPresenter.git
+    $ cd BasicPresenter
+
 Get dependencies
 
     $ git submodule update --init --recursive
@@ -49,3 +54,4 @@ Build actual project
 managers, too. Works in i3.)
 - Dynamically add new viewers
 - Dynamically change viewer offset
+- minimize dependencies

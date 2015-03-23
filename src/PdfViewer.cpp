@@ -77,6 +77,9 @@ void PdfViewer::createKeybindings()
    shortcut = new QShortcut(QKeySequence("esc"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SLOT  (showNormal()));
+   shortcut = new QShortcut(QKeySequence("Return"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotSpawnViewer()));
 }
 
 void PdfViewer::showPage(int iPage)
@@ -145,4 +148,9 @@ void PdfViewer::slotToggleFullscreen()
 {
    if (this->isFullScreen()) this->showNormal();
    else                      this->showFullScreen();
+}
+
+void PdfViewer::slotSpawnViewer()
+{
+   emit signalSpawnViewer(m_iOffset);
 }

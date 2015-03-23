@@ -27,7 +27,7 @@ Controller::Controller(QObject *parent):
    if (!m_doc) qFatal(("Error: cannot open file "+filename).toStdString().c_str());
    m_iMaxpage = m_doc->numPages()-1;
    // show "master" viewer
-   addPdfViewer(0);
+   slotAddPdfViewer(0);
    m_lViewers.last()->setWindowTitle("BasicPresenter - Master");
 
    // create user viewers
@@ -35,7 +35,7 @@ Controller::Controller(QObject *parent):
       bool ok;
       int offset;
       offset=arg.toInt(&ok);
-      if (ok) addPdfViewer(offset);
+      if (ok) slotAddPdfViewer(offset);
       else    qWarning("unrecognized argument: %s",arg.toStdString().c_str());
    }
 }
@@ -48,11 +48,11 @@ Controller::~Controller()
    }
 }
 
-void Controller::addPdfViewer(int offset)
+void Controller::slotAddPdfViewer(int offset)
 {
    PdfViewer* p = new PdfViewer(m_doc,offset);
    p->show();
-   p->showPage(0);
+   p->showPage(m_iCurrentPage);
 
    connect(p   , SIGNAL(signalSwitchPage(int)),
            this, SLOT  (slotSwitchPage  (int)));
@@ -60,6 +60,8 @@ void Controller::addPdfViewer(int offset)
            this, SLOT  (slotGotoStart()));
    connect(p   , SIGNAL(signalGotoEnd()),
            this, SLOT  (slotGotoEnd()));
+   connect(p   , SIGNAL(signalSpawnViewer(int)),
+           this, SLOT(slotAddPdfViewer(int)));
 
    m_lViewers.append(p);
 }
