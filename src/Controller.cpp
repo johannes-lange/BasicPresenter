@@ -24,7 +24,7 @@ Controller::Controller(QObject *parent):
 
    if (filename.isEmpty()) qFatal("Error: no valid filename found (*.pdf)");
    m_doc = MuPDF::loadDocument(filename);
-   if (!m_doc) qFatal(("Error: cannot open file "+filename).toStdString().c_str());
+   if (!m_doc) qFatal("Error: cannot open file %s",filename.toStdString().c_str());
    m_iMaxpage = m_doc->numPages()-1;
    // show "master" viewer
    slotAddPdfViewer(0);
