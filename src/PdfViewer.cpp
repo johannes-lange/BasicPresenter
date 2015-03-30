@@ -68,23 +68,30 @@ void PdfViewer::createKeybindings()
    shortcut = new QShortcut(QKeySequence("End"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SIGNAL(signalGotoEnd()));
-   shortcut = new QShortcut(QKeySequence("f"),this);
+   shortcut = new QShortcut(QKeySequence("F"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SLOT  (slotToggleFullscreen()));
    shortcut = new QShortcut(QKeySequence("f5"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SLOT  (slotToggleFullscreen()));
-   shortcut = new QShortcut(QKeySequence("esc"),this);
+   shortcut = new QShortcut(QKeySequence("Esc"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SLOT  (showNormal()));
-   shortcut = new QShortcut(QKeySequence("Return"),this);
+   shortcut = new QShortcut(QKeySequence("A"),this);
    connect(shortcut, SIGNAL(activated()),
            this    , SLOT  (slotSpawnViewer()));
+   shortcut = new QShortcut(QKeySequence("Shift+Right"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotIncreaseOffset()));
+   shortcut = new QShortcut(QKeySequence("Shift+Left"),this);
+   connect(shortcut, SIGNAL(activated()),
+           this    , SLOT  (slotDecreaseOffset()));
 }
 
 void PdfViewer::showPage(int iPage)
 {
-   int const iNew = iPage+m_iOffset;
+   m_iPage=iPage;
+   int const iNew = m_iPage+m_iOffset;
    if (iNew < 0 || iNew > m_iMaxpage){
       m_labelContent.setText(QString("%1/%2").arg(iNew+1).arg(m_iMaxpage+1));
    }else{
@@ -153,4 +160,16 @@ void PdfViewer::slotToggleFullscreen()
 void PdfViewer::slotSpawnViewer()
 {
    emit signalSpawnViewer(m_iOffset);
+}
+
+void PdfViewer::slotDecreaseOffset()
+{
+   m_iOffset--;
+   showPage(m_iPage);
+}
+
+void PdfViewer::slotIncreaseOffset()
+{
+   m_iOffset++;
+   showPage(m_iPage);
 }

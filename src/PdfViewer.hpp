@@ -25,6 +25,7 @@ private:
    QLabel       m_labelContent;
 
    int m_iOffset;
+   int m_iPage;
    int const m_iMaxpage;
 
    void createKeybindings();
@@ -45,6 +46,8 @@ private slots:
    void slotEmitPrev();
    void slotToggleFullscreen();
    void slotSpawnViewer();
+   void slotDecreaseOffset();
+   void slotIncreaseOffset();
 };
 
 #endif /* PDFVIEWER_HPP__ */
