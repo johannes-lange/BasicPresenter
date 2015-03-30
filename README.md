@@ -24,7 +24,8 @@ Controls:
 - `Home`/`End`   : go to first/last page
 - `F`/`F5`       : toggle fullscreen mode
 - `Esc`          : leave fullscreen mode
-
+- `A`            : add viewer (with same offset as active one)
+- `Shift`+`Left`/`Right`: De-/Increase viewer offset
 
 
 ### Building ###
@@ -52,6 +53,4 @@ Build actual project
 ### TODO ###
 - Bug: cannot decrease window size in Xfce (Probably concerns most other Window
 managers, too. Works in i3.)
-- Dynamically add new viewers
-- Dynamically change viewer offset
 - minimize dependencies
