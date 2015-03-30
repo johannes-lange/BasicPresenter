@@ -165,11 +165,13 @@ void PdfViewer::slotSpawnViewer()
 void PdfViewer::slotDecreaseOffset()
 {
    m_iOffset--;
+   this->setWindowTitle(QString("BasicPresenter - Offset %1").arg(m_iOffset));
    showPage(m_iPage);
 }
 
 void PdfViewer::slotIncreaseOffset()
 {
    m_iOffset++;
+   this->setWindowTitle(QString("BasicPresenter - Offset %1").arg(m_iOffset));
    showPage(m_iPage);
 }
